@@ -198,6 +198,13 @@ $(function() {
     database.ref('list/' + newPostKey).set(singleItem)
   }
 
+  function editItem(id, updatedItem) {
+    database.ref('list/' + id).update({
+      item: updatedItem,
+      id: id
+    })
+  }
+
   function validUrl(str) {
     var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
     if(!regex .test(str)) {
@@ -226,10 +233,16 @@ $(function() {
 
   // $("ul").disableSelection();
 
-  // Refresh button
-  $('.refresh').click(function(e) {
-    e.preventDefault()
-    location.reload(true)
+  var entryToBeUpdated
+
+  // edit entries
+  $('ul').on('click', '.todo-item>span', function(e) {
+    entryToBeUpdated = e.target.previousSibling.id
+    editItem(entryToBeUpdated, 'This is some new text')
+  })
+  $('ul').on('click', '.todo-item', function(e) {
+    entryToBeUpdated = e.target.firstChild.id
+    editItem(entryToBeUpdated, 'This is some new text')
   })
 
 });
