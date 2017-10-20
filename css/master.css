@@ -1,0 +1,137 @@
+/*
+colour palette
+#bccbde
+#c2dde6
+#e6e9f0
+#431c5d
+#e05915
+#cdd422
+*/
+
+body {
+  background-color: #c2dde6;
+}
+
+h1, li, p, button {
+  font-family: 'Ubuntu', sans-serif;
+  color: #431c5d;
+}
+
+#page {
+  margin: 0 auto;
+  padding-top: 1em;
+  max-width: 500px;
+  background-color: #c2dde6;
+  text-align: center;
+  border-radius: 15px;
+}
+
+#header {
+  text-align: center;
+  margin-bottom: 1em
+}
+
+ul {
+  width: 80%;
+  margin: 0 10% 10%;
+}
+
+#newItemForm {
+  width: 80%;
+  margin: 0 10%;
+  padding: 0;
+  margin-bottom: 2em;
+}
+
+ul {
+  padding-left: 0;
+}
+
+li {
+  color: #431c5d;
+  font-size: 1.4em;
+  min-height: 1.2em;
+  list-style: none;
+  text-align: center;
+  border-radius: 5px;
+  padding: .4em .4em .3em;
+  margin-bottom: .3em;
+  background: #bccbde;
+  font-weight: 600;
+  word-wrap: break-word;
+  user-select:
+}
+
+li a {
+  float: left;
+  color: #e05915;
+  text-shadow: 1px 1px 2px #033f5f;
+  margin-top: -.1em;
+  word-break: break-all;
+}
+
+a {
+  color: #e05915;
+  text-decoration: none;
+  margin-right: .3em;
+}
+
+li span a {
+  display: block;
+  width: 90%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-shadow: none;
+}
+
+span {
+  z-index: 100;
+}
+
+#itemDescription {
+  font-family: 'Ubuntu', sans-serif;
+  -webkit-border-radius: 5px;
+  padding: .8em 0;
+  border-radius: 5px;
+  background: #e6e9f0;
+  color: #222;
+  width: 72%;
+  text-align: center;
+  margin-left: 0;
+  border: 2px solid #e6e9f0;
+  outline: none;
+}
+
+#addButton {
+  font-family: 'Ubuntu', sans-serif;
+  background: #bccbde;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  width: 24%;
+  cursor:pointer;
+  padding: .8em 0;
+  border: .15em solid #bccbde;
+  margin-right: 0;
+  margin-left: 1%;
+  color: #431c5d;
+  font-weight: 600;
+}
+
+#itemDescription:focus {
+    border: 2px solid #e6e9f0;
+    background: #fe6e9f0;
+}
+
+.loading {
+  margin-top: 3em;
+}
+
+.error {
+  color: #431c5d;
+  font-weight: bold;
+}
+
+.placeholder {
+  background: #033f5f;
+}

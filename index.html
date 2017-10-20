@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <link rel="icon" sizes="192x192" href="images/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+  <link rel="manifest" href="manifest.json">
+  <link rel="mask-icon" href="images/safari-pinned-tab.svg" color="#5bbad5">
+
+  <meta name="application-name" content="Wishlist" />
+  <meta name="theme-color" content="#c2dde6">
+  <meta name="msapplication-TileColor" content="#c2dde6" />
+  <meta name="msapplication-TileImage" content="images/mstile-144x144.png" />
+
+  <title>Wishlist</title>
+  <link rel="stylesheet" href="css/master.css">
+  <script src="js/external/jquery.js"></script>
+  <script type="text/javascript" src="js/external/jquery-ui.min.js"></script>
+  <!-- <script type="text/javascript" src="js/external/touchPunch.min.js"></script> -->
+</head>
+
+<body>
+  <div id="page">
+    <h1 id="header">Wishlist.</h1>
+    <form id="newItemForm">
+      <input type="text" id="itemDescription" placeholder="Put your shit." />
+      <input type="submit" id="addButton" value="Wish it" />
+    </form>
+    <div class="loading">
+      <svg width="40px" height="40px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-rolling" style="background: none;">
+        <circle cx="50" cy="50" fill="none" ng-attr-stroke="{{config.color}}" ng-attr-stroke-width="{{config.width}}" ng-attr-r="{{config.radius}}" ng-attr-stroke-dasharray="{{config.dasharray}}" stroke="#431c5d" stroke-width="14" r="35" stroke-dasharray="164.93361431346415 56.97787143782138" transform="rotate(30.395 50 50)">
+          <animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;360 50 50" keyTimes="0;1" dur="0.6s" begin="0s" repeatCount="indefinite"></animateTransform>
+        </circle>
+      </svg>
+    </div>
+    <ul></ul>
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+  <script>
+  // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyBVrOJ7eM1cpAJFuNDsS6m5Yqi87B3yZn8",
+      authDomain: "wishlist-fur-uns.firebaseapp.com",
+      databaseURL: "https://wishlist-fur-uns.firebaseio.com",
+      projectId: "wishlist-fur-uns",
+      storageBucket: "",
+      messagingSenderId: "835879506683"
+    };
+    firebase.initializeApp(config);
+  </script>
+  <script type="text/javascript" src="js/todo.js"></script>
+</body>
+
+</html>
