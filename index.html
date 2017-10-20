@@ -17,7 +17,7 @@
   <meta name="msapplication-TileColor" content="#c2dde6" />
   <meta name="msapplication-TileImage" content="images/mstile-144x144.png" />
 
-  <title>Wishlist</title>
+  <title>Notes</title>
   <link rel="stylesheet" href="css/master.css">
   <script src="js/external/jquery.js"></script>
   <script type="text/javascript" src="js/external/jquery-ui.min.js"></script>
@@ -26,10 +26,11 @@
 
 <body>
   <div id="page">
-    <h1 id="header">Wishlist.</h1>
+    <img src="images/mstile-70x70.png" alt="">
+    <h1 id="header">Notes.</h1>
     <form id="newItemForm">
       <input type="text" id="itemDescription" placeholder="Put your shit." />
-      <input type="submit" id="addButton" value="Wish it" />
+      <input type="submit" id="addButton" value="Note it" />
     </form>
     <div class="loading">
       <svg width="40px" height="40px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-rolling" style="background: none;">
@@ -40,16 +41,16 @@
     </div>
     <ul></ul>
   </div>
-  <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
   <script>
   // Initialize Firebase
     var config = {
-      apiKey: "AIzaSyBVrOJ7eM1cpAJFuNDsS6m5Yqi87B3yZn8",
-      authDomain: "wishlist-fur-uns.firebaseapp.com",
-      databaseURL: "https://wishlist-fur-uns.firebaseio.com",
-      projectId: "wishlist-fur-uns",
+      apiKey: "AIzaSyAdOnpc1Ls2U4h-reqvtghjKjA-rOaVLDM",
+      authDomain: "notes-6cd93.firebaseapp.com",
+      databaseURL: "https://notes-6cd93.firebaseio.com",
+      projectId: "notes-6cd93",
       storageBucket: "",
-      messagingSenderId: "835879506683"
+      messagingSenderId: "193360239634"
     };
     firebase.initializeApp(config);
   </script>

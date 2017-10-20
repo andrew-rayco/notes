@@ -26,8 +26,14 @@ h1, li, p, button {
   border-radius: 15px;
 }
 
+#page img {
+  width: 50px;
+  margin: none;
+}
+
 #header {
   text-align: center;
+  margin-top: 0;
   margin-bottom: 1em
 }
 
