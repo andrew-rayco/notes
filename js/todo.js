@@ -145,7 +145,7 @@ $(function() {
     // Add new item to list
     $newItemForm.on('submit', function(e) {
       e.preventDefault();
-      if ($textInput.val() !== '') {
+      if ($textInput.val() !== '' && $('#addButton').val() !== 'Edit') {
 
         var newText = $textInput.val();
 
@@ -153,14 +153,18 @@ $(function() {
           newText = '<a href="' + newText + '">' + newText + '</a>'
         }
 
-        // Add item to list if not empty string
         todosArray.push(newText)
-
-        // Clear text field
         $textInput.val('');
-
         addItemToDb(newText)
+
+      } else if ($('#addButton').val() === 'Edit') {
+        // Edit existing item
+        editItem(entryToBeUpdated, $textInput.val())
+        $textInput.val('')
+        $('#addButton').val('Note it')
+
       } else {
+
         var $newMsg = $($errorMsg).hide().fadeIn(1000);
         $form.prepend($newMsg);
       };
@@ -199,15 +203,12 @@ $(function() {
   }
 
   function editItem(id, updatedItem) {
-    database.ref('list/' + id).update({
-      item: updatedItem,
-      id: id
-    })
+    database.ref('list/' + id).update({item: updatedItem, id: id})
   }
 
   function validUrl(str) {
     var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
-    if(!regex .test(str)) {
+    if (!regex.test(str)) {
       return false;
     } else {
       return true;
@@ -234,15 +235,25 @@ $(function() {
   // $("ul").disableSelection();
 
   var entryToBeUpdated
+  var entryText
 
   // edit entries
   $('ul').on('click', '.todo-item>span', function(e) {
     entryToBeUpdated = e.target.previousSibling.id
-    editItem(entryToBeUpdated, 'This is some new text')
+    entryText = e.target.innerHTML
+    updateInput(entryToBeUpdated, entryText)
   })
+
   $('ul').on('click', '.todo-item', function(e) {
     entryToBeUpdated = e.target.firstChild.id
-    editItem(entryToBeUpdated, 'This is some new text')
+    entryText = e.currentTarget.innerText.slice(1)
+    updateInput(entryToBeUpdated, entryText)
+    // editItem(entryToBeUpdated, 'This is some new text')
   })
+
+  function updateInput(entryToBeUpdated, existingText) {
+    $('#itemDescription').val(existingText)
+    $('#addButton').val('Edit')
+  }
 
 });
