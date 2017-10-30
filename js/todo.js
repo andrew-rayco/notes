@@ -1,3 +1,5 @@
+// click on a span (the text on a list item) fires both the span click event and the ul click event. The .todo-item event is undefined
+
 $(function() {
 
   var $newItemForm = $('#newItemForm');
@@ -159,6 +161,7 @@ $(function() {
 
       } else if ($('#addButton').val() === 'Edit') {
         // Edit existing item
+        console.log('entryToBeUpdated:', entryToBeUpdated)
         editItem(entryToBeUpdated, $textInput.val())
         $textInput.val('')
         $('#addButton').val('Note it')
@@ -203,6 +206,8 @@ $(function() {
   }
 
   function editItem(id, updatedItem) {
+    // problem here: id is undefined
+    console.log(id)
     database.ref('list/' + id).update({item: updatedItem, id: id})
   }
 
@@ -241,14 +246,15 @@ $(function() {
   $('ul').on('click', '.todo-item>span', function(e) {
     entryToBeUpdated = e.target.previousSibling.id
     entryText = e.target.innerHTML
+    console.log('span click:', entryToBeUpdated)
     updateInput(entryToBeUpdated, entryText)
   })
 
   $('ul').on('click', '.todo-item', function(e) {
     entryToBeUpdated = e.target.firstChild.id
     entryText = e.currentTarget.innerText.slice(1)
+    console.log('.todo-item click', entryToBeUpdated)
     updateInput(entryToBeUpdated, entryText)
-    // editItem(entryToBeUpdated, 'This is some new text')
   })
 
   function updateInput(entryToBeUpdated, existingText) {
