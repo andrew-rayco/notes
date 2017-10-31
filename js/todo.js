@@ -1,4 +1,4 @@
-// click on a span (the text on a list item) fires both the span click event and the ul click event. The .todo-item event is undefined
+// click on a span (the text on a list item) fires both the span click event and the ul click event, as it should. The .todo-item event is undefined
 
 $(function() {
 
@@ -12,6 +12,7 @@ $(function() {
   var $listItems = $('li');
   var $listItemText = $('li a').text;
   var todosArray = []
+  var entryToBeUpdated, entryText
   var database = firebase.database();
 
   // loading
@@ -206,8 +207,6 @@ $(function() {
   }
 
   function editItem(id, updatedItem) {
-    // problem here: id is undefined
-    console.log(id)
     database.ref('list/' + id).update({item: updatedItem, id: id})
   }
 
@@ -239,22 +238,19 @@ $(function() {
 
   // $("ul").disableSelection();
 
-  var entryToBeUpdated
-  var entryText
-
   // edit entries
   $('ul').on('click', '.todo-item>span', function(e) {
     entryToBeUpdated = e.target.previousSibling.id
     entryText = e.target.innerHTML
-    console.log('span click:', entryToBeUpdated)
     updateInput(entryToBeUpdated, entryText)
   })
 
   $('ul').on('click', '.todo-item', function(e) {
-    entryToBeUpdated = e.target.firstChild.id
     entryText = e.currentTarget.innerText.slice(1)
-    console.log('.todo-item click', entryToBeUpdated)
-    updateInput(entryToBeUpdated, entryText)
+    if (e.target.firstChild.id !== undefined) {
+      entryToBeUpdated = e.target.firstChild.id
+      updateInput(entryToBeUpdated, entryText)
+    }
   })
 
   function updateInput(entryToBeUpdated, existingText) {
