@@ -1,5 +1,3 @@
-// click on a span (the text on a list item) fires both the span click event and the ul click event, as it should. The .todo-item event is undefined
-
 $(function() {
 
   var $newItemForm = $('#newItemForm');
