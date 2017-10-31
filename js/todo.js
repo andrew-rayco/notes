@@ -1,3 +1,5 @@
+// click on a span (the text on a list item) fires both the span click event and the ul click event, as it should. The .todo-item event is undefined
+
 $(function() {
 
   var $newItemForm = $('#newItemForm');
@@ -10,6 +12,7 @@ $(function() {
   var $listItems = $('li');
   var $listItemText = $('li a').text;
   var todosArray = []
+  var entryToBeUpdated, entryText
   var database = firebase.database();
 
   // loading
@@ -145,7 +148,7 @@ $(function() {
     // Add new item to list
     $newItemForm.on('submit', function(e) {
       e.preventDefault();
-      if ($textInput.val() !== '') {
+      if ($textInput.val() !== '' && $('#addButton').val() !== 'Edit') {
 
         var newText = $textInput.val();
 
@@ -153,14 +156,19 @@ $(function() {
           newText = '<a href="' + newText + '">' + newText + '</a>'
         }
 
-        // Add item to list if not empty string
         todosArray.push(newText)
-
-        // Clear text field
         $textInput.val('');
-
         addItemToDb(newText)
+
+      } else if ($('#addButton').val() === 'Edit') {
+        // Edit existing item
+        console.log('entryToBeUpdated:', entryToBeUpdated)
+        editItem(entryToBeUpdated, $textInput.val())
+        $textInput.val('')
+        $('#addButton').val('Note it')
+
       } else {
+
         var $newMsg = $($errorMsg).hide().fadeIn(1000);
         $form.prepend($newMsg);
       };
@@ -198,9 +206,13 @@ $(function() {
     database.ref('list/' + newPostKey).set(singleItem)
   }
 
+  function editItem(id, updatedItem) {
+    database.ref('list/' + id).update({item: updatedItem, id: id})
+  }
+
   function validUrl(str) {
     var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
-    if(!regex .test(str)) {
+    if (!regex.test(str)) {
       return false;
     } else {
       return true;
@@ -226,10 +238,24 @@ $(function() {
 
   // $("ul").disableSelection();
 
-  // Refresh button
-  $('.refresh').click(function(e) {
-    e.preventDefault()
-    location.reload(true)
+  // edit entries
+  $('ul').on('click', '.todo-item>span', function(e) {
+    entryToBeUpdated = e.target.previousSibling.id
+    entryText = e.target.innerHTML
+    updateInput(entryToBeUpdated, entryText)
   })
+
+  $('ul').on('click', '.todo-item', function(e) {
+    entryText = e.currentTarget.innerText.slice(1)
+    if (e.target.firstChild.id !== undefined) {
+      entryToBeUpdated = e.target.firstChild.id
+      updateInput(entryToBeUpdated, entryText)
+    }
+  })
+
+  function updateInput(entryToBeUpdated, existingText) {
+    $('#itemDescription').val(existingText)
+    $('#addButton').val('Edit')
+  }
 
 });
