@@ -1,5 +1,16 @@
 $(function() {
 
+  // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyAdOnpc1Ls2U4h-reqvtghjKjA-rOaVLDM",
+      authDomain: "notes-6cd93.firebaseapp.com",
+      databaseURL: "https://notes-6cd93.firebaseio.com",
+      projectId: "notes-6cd93",
+      storageBucket: "",
+      messagingSenderId: "193360239634"
+    };
+    firebase.initializeApp(config);
+
   var $newItemForm = $('#newItemForm');
   var $textInput = $('input:text');
   var $form = $('form');
@@ -14,28 +25,34 @@ $(function() {
   var database = firebase.database();
 
   database.ref('list').on('value', function(snapshot) {
-    // snapshot.val() gives the current state of the db
+    // hide loading icon and insult
     $load.hide()
+    // snapshot.val() gives the current state of the db
     displayItems(snapshot.val())
   })
+
 
   function displayItems(allTodos) {
     // clear the ul of li's
     $('ul').empty()
 
+    // generate li's for each list item
     for (var key in allTodos) {
       $('ul').prepend('<li class="todo-item"><a id="' + allTodos[key].id + '" href="#">x</a><span>' + allTodos[key].item + '</span></li>');
     }
   }
 
+
   function addItem() {
     // Add new item to list
     $newItemForm.on('submit', function(e) {
       e.preventDefault();
-      if ($textInput.val() !== '' && $('#addButton').val() !== 'Edit') {
 
-        var newText = $textInput.val();
+      var newText = $textInput.val();
 
+      // If input isn't empty and not currently editing existing item, add new item
+      if (newText !== '' && $('#addButton').val() !== 'Edit') {
+        // Check if content is a link. If so, make clickable
         if (validUrl(newText)) {
           newText = '<a href="' + newText + '">' + newText + '</a>'
         }
@@ -84,10 +101,21 @@ $(function() {
     var singleItem = {
       item: newListItem,
       id: newPostKey,
-      order: todosArray.length
     };
 
     database.ref('list/' + newPostKey).set(singleItem)
+
+    var ref = database.ref('list/' + newPostKey)
+    ref.on('value', gotData, errData)
+  }
+
+  function gotData(data) {
+    console.log(data.val())
+  }
+
+  function errData(err) {
+    console.log('Error!')
+    console.log(err)
   }
 
   function editItem(id, updatedItem) {
